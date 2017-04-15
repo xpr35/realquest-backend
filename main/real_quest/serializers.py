@@ -21,7 +21,7 @@ class QuestModelSerializer(serializers.ModelSerializer):
         fields = ('producer','consumer', 'create_date', 'end_date', 'tags', 'stages')
         depth = 3
 
-
+0
 class PartyModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = PartyModel
