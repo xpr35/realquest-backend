@@ -21,7 +21,11 @@ from rest_framework.authtoken import views as ww
 
 router = routers.DefaultRouter()
 router.register(r'profiles', UserModelViewSet, base_name="users")
+router.register(r'queststages', QuestStagesViewSet, base_name="qstages")
+router.register(r'questmodel', QuestModelViewSet, base_name="qmodel")
+router.register(r'party', PartyModelViewSet, base_name="partym")
 # urlpatterns = router.urls
+
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
