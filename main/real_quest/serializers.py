@@ -12,12 +12,14 @@ class QuestStagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestStages
         fields = '__all__'
+        depth = 3
 
 
 class QuestModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestModel
-        fields = '__all__'
+        fields = ('producer','consumer', 'create_date', 'end_date', 'tags', 'stages')
+        depth = 3
 
 
 class PartyModelSerializer(serializers.ModelSerializer):
