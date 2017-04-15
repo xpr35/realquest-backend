@@ -12,7 +12,8 @@ class QuestStages(models.Model):
     status = models.CharField(max_length=255,
                               choices=[("Waiting", "waiting"), ("In Progress", "in_progress"), ("Done", "done")])
     cost = models.FloatField()  # ToDO currencies
-    proof = models.FileField()
+    proof = models.FileField(null=True, blank=True)
+    quest = models.ForeignKey('QuestModel', related_name='stages', null=True, blank=True)
 
 
 class QuestModel(models.Model):
@@ -20,7 +21,6 @@ class QuestModel(models.Model):
     consumer = models.OneToOneField(UserModel, on_delete=models.SET_NULL, null=True, related_name="consumer_model")
     create_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    stages = models.ForeignKey(QuestStages)
     tags = models.CharField(max_length=30)
 
 

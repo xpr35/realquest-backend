@@ -18,7 +18,7 @@ class QuestStagesSerializer(serializers.ModelSerializer):
 class QuestModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestModel
-        fields = '__all__'
+        fields = ('producer','consumer', 'create_date', 'end_date', 'tags', 'stages')
         depth = 3
 
 
