@@ -1,12 +1,10 @@
-from django.shortcuts import render
+import json
+import django_filters
 from django.core.cache import cache
-from rest_framework import viewsets
+from rest_framework import views, viewsets
 from .models import *
 from .serializers import *
-import django_filters
-from rest_framework import views
-from django.http import JsonResponse
-from rest_framework.authentication import TokenAuthentication
+from django.http import JsonResponse, HttpResponse
 
 
 class UserModelViewSet(viewsets.ModelViewSet):
@@ -39,21 +37,29 @@ class PartyModelViewSet(viewsets.ModelViewSet):
     serializer_class = PartyModelSerializer
 
 
-class ChatView(views.APIView):
-    queryset = "test"
-    def list(self, request):
+class ChatView(views.View):
+
+    def get(self, request):
         if 'chat' not in cache:
             cache.set('chat', [])
         if not isinstance(cache.get('chat'), list):
             cache.set('chat', [])
-        return JsonResponse(cache.get('chat'))
+        ret = cache.get('chat')
+        # print(ret)
+        return JsonResponse(ret, safe=False)
 
-    def create(self, request):
+    def post(self, request):
+        # url-encoded, not json data must be
         if 'chat' not in cache:
             cache.set('chat', [])
         if not isinstance(cache.get('chat'), list):
             cache.set('chat', [])
         tmp = request.POST.dict()
-        msg = tmp['msg']
-        user = tmp['user']
-        cache.set(cache.get('chat').append({'user': user, 'msg': msg}))
+        # print(tmp)
+        msg = tmp.get('msg')
+        user = tmp.get('user')
+        original = cache.get('chat')
+        original.append({'user': user, 'msg': msg})
+        # print(user, msg, original)
+        cache.set('chat', original)
+        return JsonResponse({})
