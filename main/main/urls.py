@@ -24,11 +24,13 @@ router.register(r'profiles', UserModelViewSet, base_name="users")
 router.register(r'queststages', QuestStagesViewSet, base_name="qstages")
 router.register(r'questmodel', QuestModelViewSet, base_name="qmodel")
 router.register(r'party', PartyModelViewSet, base_name="partym")
+router.register(r'chat', ChatView, base_name="chatview")
 # urlpatterns = router.urls
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-token-auth/', ww.obtain_auth_token),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^chat/', ChatView.as_view(), name='chatview')
 ]
